@@ -1,3 +1,17 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "parserOptions": {
+    "project": "tsconfig.json"
+  },
+  "plugins": ["@typeofweb"],
+  "extends": ["plugin:@typeofweb/recommended", "next/core-web-vitals"],
+
+  "overrides": [
+    {
+      "files": ["pages/*", "pages/api/*"],
+      "rules": {
+        "import/no-default-export": "off"
+      }
+    }
+  ]
 }
