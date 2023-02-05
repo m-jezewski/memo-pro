@@ -1,6 +1,15 @@
 import Head from 'next/head'
+import { useState } from 'react'
+
+import { LoginForm } from '@/components/loginForm'
+import { Modal } from '@/components/modal'
+import { RegisterForm } from '@/components/registerForm'
+
 
 export default function Home() {
+  const [isOpenRegForm, setOpenRegForm] = useState(false)
+  const [isOpenLogForm, setOpenLogForm] = useState(false)
+
   return (
     <>
       <Head>
@@ -18,13 +27,19 @@ export default function Home() {
             Effortlessly jot down and keep track of your notes, ideas, and to-dos with MEMO<span className='text-red_1'>PRO</span>
           </h2>
           <div className='flex flex-col gap-4 mt-5 text-white_1 md:flex-row'>
-            <button className='p-4 rounded-xl font-medium text-2xl bg-light_blue_1 w-60 duration-150 transition ease-in-out hover:bg-white_1 hover:text-red_1'>
+            <button onClick={() => { setOpenRegForm(!isOpenRegForm) }} className='p-4 rounded-xl font-medium text-2xl bg-light_blue_1 w-60 duration-150 transition ease-in-out hover:bg-white_1 hover:text-red_1'>
               REGISTER
             </button>
-            <button className='p-4 rounded-xl font-medium text-2xl bg-light_blue_1 w-60 duration-150 transition ease-in-out hover:bg-white_1 hover:text-red_1'>
+            <button onClick={() => { setOpenLogForm(!isOpenLogForm) }} className='p-4 rounded-xl font-medium text-2xl bg-light_blue_1 w-60 duration-150 transition ease-in-out hover:bg-white_1 hover:text-red_1'>
               LOGIN
             </button>
           </div>
+          {isOpenRegForm && <Modal isOpen={isOpenRegForm} setIsOpen={setOpenRegForm} title='REGISTER'>
+            <RegisterForm />
+          </Modal>}
+          {isOpenLogForm && <Modal isOpen={isOpenLogForm} setIsOpen={setOpenLogForm} title='LOGIN'>
+            <LoginForm />
+          </Modal>}
         </main>
       </div>
     </>

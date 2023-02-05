@@ -8,11 +8,21 @@ module.exports = {
           red_1: '#E63946',
           white_1: '#F1FAEE',
           light_blue_1: '#457B9D',
+          white_transparent: 'rgba(255,255,255,0.15)'
         },
         fontFamily: {
           montserrat: ['Montserrat', 'system-ui'],
           rowdies: ['Rowdies', 'system-ui'],
         },
+        animation:{
+          'fade-in': 'fade-in 0.25s ease-out forwards' 
+        },
+        keyframes:{
+          'fade-in': {
+            '0%': { opacity: '0%' },  
+            '100%': { opacity: '100%' }
+          },
+        }
       },
     },
     plugins: [],
