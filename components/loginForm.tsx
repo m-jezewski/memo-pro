@@ -1,16 +1,27 @@
 import { useFormik } from "formik";
+import { signIn } from 'next-auth/react'
+
 
 interface LoginFormProps {
 
 }
 
 export const LoginForm = ({ }: LoginFormProps) => {
+
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
         },
-        onSubmit: values => { console.log(values) }
+        onSubmit: async values => {
+            console.log(values)
+            try {
+                const res = await signIn("credentials", { redirect: false, email: values.email, password: values.password })
+                console.log(res)
+            } catch {
+                console.log('fail')
+            }
+        }
     })
 
     return (
@@ -20,7 +31,7 @@ export const LoginForm = ({ }: LoginFormProps) => {
             </label>
             <input
                 name='email'
-                className='block rounded-full p-2 w-full text-black'
+                className='block rounded-full p-2 pl-3 w-full text-black'
                 type='email'
                 onChange={formik.handleChange}
                 value={formik.values.email}
@@ -30,7 +41,7 @@ export const LoginForm = ({ }: LoginFormProps) => {
             </label>
             <input
                 name='password'
-                className='block rounded-full p-2 w-full text-black'
+                className='block rounded-full p-2 pl-3 w-full text-black'
                 type='password'
                 onChange={formik.handleChange}
                 value={formik.values.password}

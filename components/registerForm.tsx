@@ -1,5 +1,7 @@
 import { useFormik } from "formik";
 
+
+
 interface RegisterFormProps {
 
 }
@@ -10,7 +12,17 @@ export const RegisterForm = ({ }: RegisterFormProps) => {
             email: '',
             password: '',
         },
-        onSubmit: values => { console.log(values) }
+        onSubmit: async values => {
+            try {
+                await fetch('http://localhost:3000/api/user/create', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(values)
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        }
     })
 
     return (
@@ -20,7 +32,7 @@ export const RegisterForm = ({ }: RegisterFormProps) => {
             </label>
             <input
                 name='email'
-                className='block rounded-full p-2 w-full text-black'
+                className='block rounded-full p-2 pl-3 w-full text-black'
                 type='email'
                 onChange={formik.handleChange}
                 value={formik.values.email}
@@ -30,7 +42,7 @@ export const RegisterForm = ({ }: RegisterFormProps) => {
             </label>
             <input
                 name='password'
-                className='block rounded-full p-2 w-full text-black'
+                className='block rounded-full p-2 pl-3 w-full text-black'
                 type='password'
                 onChange={formik.handleChange}
                 value={formik.values.password}

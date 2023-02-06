@@ -1,12 +1,24 @@
+
 import Head from 'next/head'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { signOut, useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
 
 import { LoginForm } from '@/components/loginForm'
 import { Modal } from '@/components/modal'
 import { RegisterForm } from '@/components/registerForm'
 
 
+
 export default function Home() {
+  const router = useRouter()
+  const { data: session } = useSession()
+  console.log("session", session)
+  useEffect(() => {
+    if (session) {
+      router.push('./notes').catch((error) => console.log(error))
+    }
+  }, [session, router])
   const [isOpenRegForm, setOpenRegForm] = useState(false)
   const [isOpenLogForm, setOpenLogForm] = useState(false)
 
@@ -21,7 +33,7 @@ export default function Home() {
       <div className='min-h-screen flex'>
         <main className='flex flex-col mx-auto px-14 mt-28 gap-2 font-montserrat container items-center lg:items-start'>
           <h1 className='font-bold text-6xl text-white_1 font-rowdies md:text-9xl'>
-            MEMO<span className='text-red_1'>PRO</span>
+            MEMO<span className='text-red_1'>PRO {session?.user ? session.user.email : "Brak sesji"}</span>
           </h1>
           <h2 className='font-bold text-3xl max-w-3xl text-white_1 uppercase text-center lg:text-left md:text-5xl'>
             Effortlessly jot down and keep track of your notes, ideas, and to-dos with MEMO<span className='text-red_1'>PRO</span>
@@ -33,6 +45,7 @@ export default function Home() {
             <button onClick={() => { setOpenLogForm(!isOpenLogForm) }} className='p-4 rounded-xl font-medium text-2xl bg-light_blue_1 w-60 duration-150 transition ease-in-out hover:bg-white_1 hover:text-red_1'>
               LOGIN
             </button>
+            <button onClick={async () => { await signOut({ redirect: false }) }}>Log out</button>
           </div>
           {isOpenRegForm && <Modal isOpen={isOpenRegForm} setIsOpen={setOpenRegForm} title='REGISTER'>
             <RegisterForm />
