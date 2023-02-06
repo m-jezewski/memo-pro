@@ -8,7 +8,7 @@
 
   "overrides": [
     {
-      "files": ["pages/*", "pages/api/*"],
+      "files": ["pages/*", "pages/api/**"],
       "rules": {
         "import/no-default-export": "off"
       }
