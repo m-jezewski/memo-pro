@@ -13,15 +13,11 @@ export const RegisterForm = ({ }: RegisterFormProps) => {
             password: '',
         },
         onSubmit: async values => {
-            try {
-                await fetch('http://localhost:3000/api/user/create', {
-                    method: 'POST',
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(values)
-                })
-            } catch (error) {
-                console.log(error)
-            }
+            await fetch('http://localhost:3000/api/user/create', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(values)
+            })
         }
     })
 

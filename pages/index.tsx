@@ -1,26 +1,20 @@
 
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { signOut, useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { signOut } from 'next-auth/react'
+import { useState } from 'react'
 
 import { LoginForm } from '@/components/loginForm'
 import { Modal } from '@/components/modal'
 import { RegisterForm } from '@/components/registerForm'
+import { useRedirect } from '@/hooks/useRedirect'
 
 
 
 export default function Home() {
-  const router = useRouter()
-  const { data: session } = useSession()
-  console.log("session", session)
-  useEffect(() => {
-    if (session) {
-      router.push('./notes').catch((error) => console.log(error))
-    }
-  }, [session, router])
   const [isOpenRegForm, setOpenRegForm] = useState(false)
   const [isOpenLogForm, setOpenLogForm] = useState(false)
+
+  useRedirect()
 
   return (
     <>
@@ -31,14 +25,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className='min-h-screen flex'>
-        <main className='flex flex-col mx-auto px-14 mt-28 gap-2 font-montserrat container items-center lg:items-start'>
-          <h1 className='font-bold text-6xl text-white_1 font-rowdies md:text-9xl'>
-            MEMO<span className='text-red_1'>PRO {session?.user ? session.user.email : "Brak sesji"}</span>
+        <main className='flex flex-col mx-auto px-14 mt-28 gap-2 font-montserrat container items-center lg:items-start text-white_1'>
+          <h1 className='font-bold text-6xl font-rowdies md:text-9xl'>
+            MEMO<span className='text-red_1'>PRO</span>
           </h1>
-          <h2 className='font-bold text-3xl max-w-3xl text-white_1 uppercase text-center lg:text-left md:text-5xl'>
+          <h2 className='font-bold text-3xl max-w-3xl uppercase text-center lg:text-left md:text-5xl'>
             Effortlessly jot down and keep track of your notes, ideas, and to-dos with MEMO<span className='text-red_1'>PRO</span>
           </h2>
-          <div className='flex flex-col gap-4 mt-5 text-white_1 md:flex-row'>
+          <div className='flex flex-col gap-4 mt-5 md:flex-row'>
             <button onClick={() => { setOpenRegForm(!isOpenRegForm) }} className='p-4 rounded-xl font-medium text-2xl bg-light_blue_1 w-60 duration-150 transition ease-in-out hover:bg-white_1 hover:text-red_1'>
               REGISTER
             </button>

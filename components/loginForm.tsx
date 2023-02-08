@@ -15,12 +15,7 @@ export const LoginForm = ({ }: LoginFormProps) => {
         },
         onSubmit: async values => {
             console.log(values)
-            try {
-                const res = await signIn("credentials", { redirect: false, email: values.email, password: values.password })
-                console.log(res)
-            } catch {
-                console.log('fail')
-            }
+            await signIn("credentials", { callbackUrl: '/notes', email: values.email, password: values.password })
         }
     })
 
