@@ -8,7 +8,8 @@ module.exports = {
           red_1: '#E63946',
           white_1: '#F1FAEE',
           light_blue_1: '#457B9D',
-          white_transparent: 'rgba(255,255,255,0.15)'
+          white_transparent: 'rgba(255,255,255,0.15)',
+          light_blue_transparent: 'rgba(69, 123, 157, 0.5)'
         },
         fontFamily: {
           montserrat: ['Montserrat', 'system-ui'],
