@@ -1,6 +1,6 @@
 import type { Note } from "@prisma/client";
 
-export const NoteCard = ({ content, id, title }: Note) => {
+export const NoteCard = ({ content, title }: Note) => {
     return (
         <div className='bg-light_blue_transparent rounded-t-lg p-4'>
             <header className='flex justify-between my-1'>
