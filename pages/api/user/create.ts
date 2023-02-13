@@ -16,6 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             res.status(500).end()
         }
     } else{
-        throw new Error("Wrong HTTP method")
+        res.status(405)
     }
 }

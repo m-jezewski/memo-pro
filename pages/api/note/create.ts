@@ -13,18 +13,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const {uid, title, content}: reqBody = req.body
 
     if(req.method === 'POST'){
-        const author = await client.user.findUnique({where: { id: uid }})
-        if(!author) throw new Error('User not found')
-
-        const note = await client.note.create({
-            data: {
-                title: title,
-                content: content,
-                authorId: author.id
-            }
-        })
-        res.json(note)
+        try{
+            const author = await client.user.findUnique({where: { id: uid }})
+            if(!author) throw new Error('User not found')
+            const note = await client.note.create({
+                data: {
+                    title: title,
+                    content: content,
+                    authorId: author.id
+                }
+            })
+            res.status(200).json(note)
+        } catch {
+            res.statusMessage = 'Sorry!, Something went wrong while creating your note.'
+            res.status(500).end()
+        }
     } else{
-        throw new Error("Wrong HTTP method")
+        res.status(405).end()
     }
 }
