@@ -20,10 +20,10 @@ export const Modal = ({ children, title, overlay = true, isOpen, setIsOpen }: Mo
                 <div
                     onClick={(e) => { e.stopPropagation() }}
                     ref={modalRef}
-                    className='relative bg-gradient-to-b from-dark_blue_1 to-slate-900 p-12 rounded-3xl flex flex-col gap-8 items-center text-white_1 shadow-2xl max-w-sm w-screen'>
-                    <h2 className="mx-auto text-3xl font-medium">{title}</h2>
+                    className='relative bg-gradient-to-b from-dark_blue_1 to-slate-900 p-10 rounded-3xl flex flex-col gap-8 items-center text-white_1 shadow-[0px_0px_60px_-5px_rgba(0,0,0,0.50)] max-w-sm w-screen'>
+                    <h2 className="mx-auto text-2xl font-medium">{title}</h2>
                     <button
-                        className='absolute top-6 right-6 '
+                        className='absolute top-10 right-10 '
                         onClick={() => { setIsOpen(false) }}
                     >X</button>
                     {children}

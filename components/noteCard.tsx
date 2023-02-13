@@ -2,7 +2,7 @@ import type { Note } from "@prisma/client";
 
 export const NoteCard = ({ content, title }: Note) => {
     return (
-        <div className='bg-light_blue_transparent rounded-t-lg p-4'>
+        <div className='bg-light_blue_transparent rounded-lg p-4 h-56'>
             <header className='flex justify-between my-1'>
                 <h4 className='uppercase font-medium'>{title}</h4>
                 <div className='flex gap-4'>
