@@ -1,49 +1,39 @@
-import { useFormik } from "formik";
+import { Form, Formik } from "formik";
+import { useState } from "react";
+
+import { TextInput } from "./textInput";
 
 
-
-interface RegisterFormProps {
-
-}
-
-export const RegisterForm = ({ }: RegisterFormProps) => {
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
-        },
-        onSubmit: async values => {
-            await fetch('http://localhost:3000/api/user/create', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(values)
-            })
-        }
-    })
+export const RegisterForm = () => {
+    const [errorMessage, setErrorMessage] = useState('')
 
     return (
-        <form onSubmit={formik.handleSubmit} className='flex flex-col items-center w-full gap-1'>
-            <label htmlFor='email' className='w-full'>
-                Email:
-            </label>
-            <input
-                name='email'
-                className='block rounded-full p-2 pl-3 w-full text-black'
-                type='email'
-                onChange={formik.handleChange}
-                value={formik.values.email}
-            />
-            <label htmlFor='password' className='w-full mt-4'>
-                Password:
-            </label>
-            <input
-                name='password'
-                className='block rounded-full p-2 pl-3 w-full text-black'
-                type='password'
-                onChange={formik.handleChange}
-                value={formik.values.password}
-            />
-            <button className='bg-light_blue_1 font-medium transition p-2 w-full rounded-full mt-6 leading-6 hover:bg-white_1 hover:text-red_1' type='submit'>SUBMIT</button>
-        </form>
+        <Formik
+            initialValues={{ email: '', password: '' }}
+            onSubmit={async values => {
+                const res = await fetch('http://localhost:3000/api/user/create', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(values)
+                })
+                if (!res.ok) setErrorMessage(res.statusText)
+            }}>
+            <Form className='flex flex-col w-full gap-4'>
+                <TextInput
+                    label='Email'
+                    name='email'
+                    type='email'
+                    required
+                />
+                <TextInput
+                    label='Password'
+                    name='password'
+                    type='password'
+                    required
+                />
+                {errorMessage !== '' && <p className='text-sm text-red_1 text-center'>{errorMessage}</p>}
+                <button className='bg-light_blue_1 font-medium transition p-2 w-full rounded-full leading-6 hover:bg-white_1 hover:text-red_1' type='submit'>SIGN UP</button>
+            </Form>
+        </Formik>
     );
 }
