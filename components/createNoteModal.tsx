@@ -1,13 +1,16 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
 
 import { Modal } from "./modal";
 import { TextInput } from "./textInput";
 
 import type { Dispatch, SetStateAction } from "react";
 
+interface formValues {
+    readonly title: string;
+    readonly content: string;
+}
 
 interface CreateNoteModalProps {
     readonly isOpen: boolean
@@ -16,8 +19,21 @@ interface CreateNoteModalProps {
 
 export const CreateNoteModal = ({ isOpen, setIsOpen }: CreateNoteModalProps) => {
     const session = useSession()
-    const router = useRouter()
-    const [errorMessage, setErrorMessage] = useState('')
+    const queryClient = useQueryClient()
+
+    const createNoteMutation = useMutation({
+        mutationFn: async ({ title, content }: formValues) => {
+            await fetch('http://localhost:3000/api/note/create', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title: title, content: content, uid: session.data?.user.uid })
+            })
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ['notes'] })
+            setIsOpen(false)
+        },
+    })
 
     return (
         <Modal
@@ -28,22 +44,14 @@ export const CreateNoteModal = ({ isOpen, setIsOpen }: CreateNoteModalProps) => 
         >
             <Formik
                 initialValues={{ title: '', content: '' }}
-                onSubmit={async (values, actions) => {
-                    const res = await fetch('http://localhost:3000/api/note/create', {
-                        method: 'POST',
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ title: values.title, content: values.content, uid: session.data?.user.uid })
-                    })
-                    if (!res.ok) {
-                        setErrorMessage(res.statusText)
-                    } else {
-                        setIsOpen(false)
-                        await router.replace(router.asPath)
-                    }
+                onSubmit={(values, actions) => {
+                    createNoteMutation.mutate(values)
                     actions.resetForm()
                 }}
                 validate={(values) => {
-                    if (!values.content) return { content: 'Note content is required' }
+                    if (!values.content) {
+                        return { content: 'Note content is required' }
+                    }
                     return {}
                 }}
             >
@@ -64,11 +72,13 @@ export const CreateNoteModal = ({ isOpen, setIsOpen }: CreateNoteModalProps) => 
                         maxLength={10000}
                         placeholder="Your note..."
                     />
-                    {errorMessage !== '' && <p>{errorMessage}</p>}
+                    {createNoteMutation.isError && <p className='text-red_1 text-center'>Sorry!, Something went wrong!</p>}
                     <button
-                        className='bg-light_blue_1 font-medium transition p-2 w-full rounded-full mt-4 leading-6 hover:bg-white_1 hover:text-red_1'
+                        disabled={createNoteMutation.isLoading}
+                        className={`font-medium transition p-2 w-full rounded-full mt-4 leading-6 bg-light_blue_1 
+                        ${createNoteMutation.isLoading ? 'bg-dark_blue_1' : 'hover:bg-white_1 hover:text-red_1'}`}
                         type='submit'>
-                        Add new note
+                        {createNoteMutation.isLoading ? 'Creating new note...' : 'Add new note'}
                     </button>
                 </Form>
             </Formik>

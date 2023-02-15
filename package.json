@@ -13,6 +13,8 @@
     "@next/font": "13.1.4",
     "@prisma/client": "^4.9.0",
     "@tailwindcss/line-clamp": "^0.4.2",
+    "@tanstack/react-query": "^4.24.6",
+    "@tanstack/react-query-devtools": "^4.24.6",
     "formik": "^2.2.9",
     "next": "13.1.4",
     "next-auth": "^4.18.8",

@@ -28,7 +28,8 @@ module.exports = {
           '1/3-1rem': 'calc(33.333% - 1rem)'
         },
         width:{
-          '1/3-1rem': 'calc(33.333% - 1rem)'
+          '1/3-1rem': 'calc(33.333% - 1rem)',
+          '1/2-1rem': 'calc(50% - 1rem)'
         }
       },
     },
