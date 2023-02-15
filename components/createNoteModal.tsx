@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -15,6 +16,7 @@ interface CreateNoteModalProps {
 
 export const CreateNoteModal = ({ isOpen, setIsOpen }: CreateNoteModalProps) => {
     const session = useSession()
+    const router = useRouter()
     const [errorMessage, setErrorMessage] = useState('')
 
     return (
@@ -36,6 +38,7 @@ export const CreateNoteModal = ({ isOpen, setIsOpen }: CreateNoteModalProps) => 
                         setErrorMessage(res.statusText)
                     } else {
                         setIsOpen(false)
+                        await router.replace(router.asPath)
                     }
                     actions.resetForm()
                 }}

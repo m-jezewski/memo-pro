@@ -5,16 +5,16 @@ import type { Note } from "@prisma/client";
 
 import { CreateNoteModal } from "@/components/createNoteModal";
 import { NoteCard } from "@/components/noteCard";
-import { unstable_getServerSession } from "next-auth";
 import { client } from "@/lib/prismadb";
+
 
 interface NotesProps {
     readonly data: readonly Note[]
 }
 
 const Notes = ({ data }: NotesProps) => {
+
     const [openCreateNote, setOpenCreateNote] = useState(false)
-    console.log(data)
 
     return (
         <div className='container flex flex-col mx-auto min-h-screen text-white_1'>
@@ -29,7 +29,7 @@ const Notes = ({ data }: NotesProps) => {
                     <button className='font-semibold' onClick={async () => { await signOut({ callbackUrl: '/' }) }}>Logout</button>
                 </div>
             </header>
-            <main className='grow grid grid-cols-3 auto-rows-auto gap-4 p-8'>
+            <main className='flex flex-wrap gap-4 p-8'>
                 {data.map(note => (
                     <NoteCard
                         key={note.id}
@@ -41,7 +41,7 @@ const Notes = ({ data }: NotesProps) => {
                 ))}
                 <button
                     onClick={() => { setOpenCreateNote(true) }}
-                    className=''>
+                    className='w-1/3-1rem h-56'>
                     +
                 </button>
                 <CreateNoteModal isOpen={openCreateNote} setIsOpen={setOpenCreateNote} />

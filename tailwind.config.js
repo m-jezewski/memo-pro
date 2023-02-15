@@ -23,8 +23,16 @@ module.exports = {
             '0%': { opacity: '0%' },  
             '100%': { opacity: '100%' }
           },
+        },
+        flexBasis:{
+          '1/3-1rem': 'calc(33.333% - 1rem)'
+        },
+        width:{
+          '1/3-1rem': 'calc(33.333% - 1rem)'
         }
       },
     },
-    plugins: [],
+    plugins: [
+      require('@tailwindcss/line-clamp')
+    ],
   }
