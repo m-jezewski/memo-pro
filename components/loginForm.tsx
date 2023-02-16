@@ -33,7 +33,7 @@ export const LoginForm = () => {
                     required
                 />
                 {errorMessage !== '' && <p className='text-sm text-red_1 text-center'>{errorMessage}</p>}
-                <button className='bg-light_blue_1 font-medium transition p-2 w-full rounded-full leading-6 hover:bg-white_1 hover:text-red_1' type='submit'>SIGN IN</button>
+                <button className='bg-light_blue_1 font-medium transition p-2 w-full rounded-full leading-6 hover:bg-white_1 hover:text-red_1 mt-5' type='submit'>SIGN IN</button>
             </Form>
         </Formik>
     );
