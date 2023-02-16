@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 
 import type { Note } from "@prisma/client";
@@ -12,14 +12,18 @@ import { NoteCard } from "@/components/noteCard/noteCard";
 
 const Notes = () => {
     const [openCreateNote, setOpenCreateNote] = useState(false)
+    const session = useSession()
+
     const noteQuery = useQuery({
         queryKey: ['notes'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:3000/api/note/get')
+            const res = await fetch(`http://localhost:3000/api/note/${session.data?.user.uid}`)
             const data: readonly Note[] = await res.json()
             return data
         }
     })
+
+    console.log(session, session.data?.user.uid)
 
     return (
         <div className='container flex flex-col mx-auto min-h-screen text-white_1'>

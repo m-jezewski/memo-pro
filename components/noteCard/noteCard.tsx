@@ -1,12 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
 
 import type { Note } from "@prisma/client";
 
 
-export const NoteCard = ({ content, title, id }: Note) => {
-    const session = useSession()
+export const NoteCard = ({ content, title, id, authorId }: Note) => {
     const queryClient = useQueryClient()
 
     const deleteNoteMutation = useMutation({
@@ -14,7 +12,7 @@ export const NoteCard = ({ content, title, id }: Note) => {
             await fetch('http://localhost:3000/api/note/delete', {
                 method: 'DELETE',
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ noteId: id, uid: session.data?.user.uid })
+                body: JSON.stringify({ noteId: id })
             })
         },
         onSuccess: async () => {

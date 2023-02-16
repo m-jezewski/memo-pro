@@ -9,12 +9,10 @@ interface reqBody {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Note>) {
-    const {uid, noteId} : reqBody = req.body
+    const {noteId} : reqBody = req.body
 
     if(req.method === 'DELETE'){
         try{
-            const author = await client.user.findUnique({where: { id: uid }})
-            if(!author) throw new Error('User not found')
             const note = await client.note.delete({where: { id: noteId }})
             res.status(200).json(note)
         } catch {
