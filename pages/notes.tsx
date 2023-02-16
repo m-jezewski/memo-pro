@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 
@@ -47,8 +48,8 @@ const Notes = () => {
                         )) : null}
                         <button
                             onClick={() => { setOpenCreateNote(true) }}
-                            className='w-1/3-1rem h-56'>
-                            +
+                            className='w-1/3-1rem h-56  grid items-center rounded-lg justify-center transition-all hover:backdrop-brightness-150 hover:backdrop-contrast-[0.9] hover:backdrop-saturate-[1.15]'>
+                            <Image src='/add.svg' alt='Add new note' width={48} height={48} />
                         </button>
                     </>}
                 <CreateNoteModal isOpen={openCreateNote} setIsOpen={setOpenCreateNote} />
