@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import { useState } from "react";
 
-import { TextInput } from "./textInput";
+import { TextInput } from "../textInput/textInput";
 
 
 export const RegisterForm = () => {

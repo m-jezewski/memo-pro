@@ -5,8 +5,8 @@ import { useState } from "react";
 
 import type { Note } from "@prisma/client";
 
-import { CreateNoteModal } from "@/components/createNoteModal";
-import { NoteCard } from "@/components/noteCard";
+import { CreateNoteModal } from "@/components/createNoteModal/createNoteModal";
+import { NoteCard } from "@/components/noteCard/noteCard";
 
 
 
@@ -23,9 +23,9 @@ const Notes = () => {
 
     return (
         <div className='container flex flex-col mx-auto min-h-screen text-white_1'>
-            <header className='flex justify-between p-8 pb-0'>
-                <h1 className='font-rowdies text-5xl'>MEMO<span className='text-red_1'>PRO</span></h1>
-                <div className='flex gap-16'>
+            <header className='flex justify-between p-8 pb-0 gap-y-4 flex-col sm:flex-row'>
+                <h1 className='font-rowdies text-2xl md:text-5xl mx-auto sm:mx-0'>MEMO<span className='text-red_1'>PRO</span></h1>
+                <div className='flex gap-16 justify-center'>
                     <button
                         onClick={() => { setOpenCreateNote(true) }}
                         className='font-semibold'>
@@ -48,7 +48,8 @@ const Notes = () => {
                         )) : null}
                         <button
                             onClick={() => { setOpenCreateNote(true) }}
-                            className='w-1/3-1rem h-56  grid items-center rounded-lg justify-center transition-all hover:backdrop-brightness-150 hover:backdrop-contrast-[0.9] hover:backdrop-saturate-[1.15]'>
+                            className='w-1/3-1rem h-56  grid items-center rounded-lg justify-center transition-all 
+                            hover:backdrop-brightness-150 hover:backdrop-contrast-[0.9] hover:backdrop-saturate-[1.15]'>
                             <Image src='/add.svg' alt='Add new note' width={48} height={48} />
                         </button>
                     </>}

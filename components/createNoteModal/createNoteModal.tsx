@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useSession } from "next-auth/react";
 
-import { Modal } from "./modal";
-import { TextInput } from "./textInput";
+import { Modal } from "../modal/modal";
+import { TextInput } from "../textInput/textInput";
 
 import type { Dispatch, SetStateAction } from "react";
 
