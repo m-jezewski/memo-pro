@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useRef } from "react"
 
 import type { Dispatch, SetStateAction, ReactNode } from "react";
@@ -23,9 +24,11 @@ export const Modal = ({ children, title, overlay = true, isOpen, setIsOpen }: Mo
                     className='relative bg-gradient-to-b from-dark_blue_1 to-slate-900 p-10 rounded-3xl flex flex-col gap-8 items-center text-white_1 shadow-[0px_0px_60px_-5px_rgba(0,0,0,0.50)] max-w-sm w-screen'>
                     <h2 className="mx-auto text-2xl font-medium">{title}</h2>
                     <button
-                        className='absolute top-10 right-10 '
+                        className='absolute top-11 right-10 '
                         onClick={() => { setIsOpen(false) }}
-                    >X</button>
+                    >
+                        <Image src='/close.svg' alt='close modal' width={24} height={24} />
+                    </button>
                     {children}
                 </div>
             </div>

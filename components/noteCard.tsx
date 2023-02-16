@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 
 import type { Note } from "@prisma/client";
@@ -38,8 +39,9 @@ export const NoteCard = ({ content, title, id }: Note) => {
             <header className='flex justify-between'>
                 <h4 className='uppercase font-medium'>{title}</h4>
                 <div className='flex gap-4'>
-                    <button>E</button>
-                    <button onClick={() => { deleteNoteMutation.mutate() }}>X</button>
+                    <button onClick={() => { deleteNoteMutation.mutate() }}>
+                        <Image src={'/delete.svg'} alt='Remove note' width={24} height={24} />
+                    </button>
                 </div>
             </header>
             <p className='grow text-sm line-clamp-[8] break-words whitespace-pre-line'>
