@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import { signIn } from 'next-auth/react'
 import { useState } from "react";
 
-import { TextInput } from "../textInput/textInput";
+import { TextInput } from "../textInput";
 
 
 export const LoginForm = () => {

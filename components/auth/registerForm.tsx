@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 
-import { TextInput } from "../textInput/textInput";
+import { TextInput } from "../textInput";
 
 interface formValues {
     readonly email: string,

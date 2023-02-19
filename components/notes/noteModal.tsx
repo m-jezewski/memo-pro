@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { useState, useEffect } from 'react'
 
-import { Modal } from "../modal/modal";
-import { NoteForm } from "../noteForm/noteForm";
+import { Modal } from "../modal";
+
+import { NoteForm } from "./noteForm";
 
 import type { Note } from '@prisma/client';
 import type { Dispatch, SetStateAction } from 'react'
@@ -42,7 +43,7 @@ export const NoteModal = ({ note, isOpen, setIsOpen }: NoteModalProps) => {
                     btnMessageSubmitting='Saving changes...'
                 /> :
                 <>
-                    <p className='whitespace-pre-line'>{note.content}</p>
+                    <p className='break-words max-w-full'>{note.content}</p>
                     <div className='flex justify-around w-full'>
                         <button
                             onClick={() => { setIsEditing(true) }}

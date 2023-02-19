@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from 'react'
 
-import { NoteModal } from "../noteModal/noteModal";
+import { NoteModal } from "./noteModal";
 
 import type { Note } from "@prisma/client";
 

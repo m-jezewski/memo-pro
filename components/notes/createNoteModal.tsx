@@ -1,5 +1,7 @@
-import { Modal } from "../modal/modal";
-import { NoteForm } from "../noteForm/noteForm";
+import { Modal } from "../modal";
+
+import { NoteForm } from "./noteForm";
+
 
 import type { Dispatch, SetStateAction } from "react";
 

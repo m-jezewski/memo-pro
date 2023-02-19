@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 
-import { TextInput } from "../textInput/textInput";
+import { TextInput } from "../textInput";
 
 import type { UseMutationResult } from '@tanstack/react-query';
 
