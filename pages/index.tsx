@@ -3,9 +3,9 @@ import Head from 'next/head'
 import { signOut } from 'next-auth/react'
 import { useState } from 'react'
 
-import { LoginForm } from '@/components/loginForm/loginForm'
-import { Modal } from '@/components/modal/modal'
-import { RegisterForm } from '@/components/registerForm/registerForm'
+import { LoginForm } from '@/components/auth/loginForm'
+import { RegisterForm } from '@/components/auth/registerForm'
+import { Modal } from '@/components/modal'
 import { useRedirect } from '@/hooks/useRedirect'
 
 

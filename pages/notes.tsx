@@ -1,27 +1,25 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import { signOut, useSession } from "next-auth/react";
-import { useState } from "react";
+import { signOut } from "next-auth/react";
+import { useState, useEffect } from "react";
 
 import type { Note } from "@prisma/client";
 
-import { CreateNoteModal } from "@/components/createNoteModal/createNoteModal";
-import { NoteCard } from "@/components/noteCard/noteCard";
-
-
+import { CreateNoteModal } from "@/components/notes/createNoteModal";
+import { NoteCard } from "@/components/notes/noteCard";
+import { useGetNotes } from "@/hooks/useGetNotes";
 
 const Notes = () => {
     const [openCreateNote, setOpenCreateNote] = useState(false)
-    const session = useSession()
+    const queryClient = useQueryClient()
 
-    const noteQuery = useQuery({
-        queryKey: ['notes'],
-        queryFn: async () => {
-            const res = await fetch(`http://localhost:3000/api/note/${session.data?.user.uid}`)
-            const data: readonly Note[] = await res.json()
-            return data
-        }
-    })
+    const noteQuery = useGetNotes()
+
+    useEffect(() => {
+        queryClient.invalidateQueries({ queryKey: ['notes'] })
+            .catch(err => console.log(err))
+    }, [queryClient])
+
 
     return (
         <div className='container flex flex-col mx-auto min-h-screen text-white_1'>
@@ -46,12 +44,13 @@ const Notes = () => {
                                 title={note.title}
                                 authorId={note.authorId}
                                 content={note.content}
+                                orderIndex={note.orderIndex}
                             />
                         )) : null}
                         <button
                             onClick={() => { setOpenCreateNote(true) }}
                             className='h-56  grid items-center rounded-lg justify-center transition-all hover:backdrop-brightness-150
-                             hover:backdrop-contrast-[0.9] hover:backdrop-saturate-[1.15] w-full sm:w-1/2-1rem lg:w-1/3-1rem'>
+                             hover:backdrop-contrast-[0.9] hover:backdrop-saturate-[1.15] w-full sm:w-1/2-1rem lg:w-1/3-1rem order-last'>
                             <Image src='/add.svg' alt='Add new note' width={48} height={48} />
                         </button>
                     </>}
