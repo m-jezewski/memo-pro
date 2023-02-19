@@ -1,4 +1,3 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState, useEffect } from 'react'
 
@@ -8,6 +7,9 @@ import { NoteForm } from "../noteForm/noteForm";
 import type { Note } from '@prisma/client';
 import type { Dispatch, SetStateAction } from 'react'
 
+import { useDeleteNote } from "@/hooks/useDeleteNote";
+import { useEditNote } from "@/hooks/useEditNote";
+
 interface NoteModalProps {
     readonly note: Note
     readonly isOpen: boolean
@@ -16,26 +18,12 @@ interface NoteModalProps {
 
 export const NoteModal = ({ note, isOpen, setIsOpen }: NoteModalProps) => {
     const [isEditing, setIsEditing] = useState(false)
-    const queryClient = useQueryClient()
+    const editNoteMutation = useEditNote(note.id, () => { setIsEditing(false) })
+    const deleteNoteMutation = useDeleteNote(note.id)
 
     useEffect(() => {
         setIsEditing(false)
     }, [isOpen])
-
-
-    const editNoteMutation = useMutation({
-        mutationFn: async (formValues: { readonly title: string, readonly content: string }) => {
-            await fetch('http://localhost:3000/api/note/edit', {
-                method: 'PUT',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ title: formValues.title, content: formValues.content, id: note.id })
-            })
-        },
-        onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: ['notes'] })
-            setIsEditing(false)
-        }
-    })
 
     return (
         <Modal
@@ -62,7 +50,7 @@ export const NoteModal = ({ note, isOpen, setIsOpen }: NoteModalProps) => {
                             <Image src='/edit.svg' width={32} height={32} alt='Edit note' />
                         </button>
                         <button
-                            onClick={() => { }}
+                            onClick={() => { deleteNoteMutation.mutate() }}
                             className='rounded-full p-2 transition-all hover:bg-red-900'>
                             <Image src='/delete.svg' width={32} height={32} alt='Remove note' />
                         </button>
