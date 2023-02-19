@@ -21,7 +21,7 @@ export const TextInput = (props: TextInputOtherProps & FieldHookConfig<string>) 
         render={message => (<p className="inline-block text-sm text-red_1 absolute right-0">{message}</p>)}
       />
       <Field
-        className="bg-dark_blue_1 resize-none w-full rounded-md p-2"
+        className="bg-dark_blue_1 custom-scrollbar resize-none w-full rounded-md p-2 outline-light_blue_1 "
         {...field}
         {...props}
       />

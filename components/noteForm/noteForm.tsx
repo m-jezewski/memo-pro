@@ -20,7 +20,6 @@ interface NoteFormProps {
 }
 
 export const NoteForm = ({ mutation, initialValues, btnMessageIdle, btnMessageSubmitting }: NoteFormProps) => {
-
     return (
         <Formik
             initialValues={initialValues}

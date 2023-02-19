@@ -57,3 +57,17 @@
       transform: rotate(-360deg);
     }
   }
+
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #1322383b;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #457B9D;
+  border-radius: 1rem;
+  padding-top: 1rem;
+}
+  
