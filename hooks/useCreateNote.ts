@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 
-interface formValues {
+interface mutationValues {
     readonly title: string;
     readonly content: string;
+    readonly uid?: string
 }
 
 export const useCreateNote = (onFinished?: () => void) => {
@@ -11,11 +12,12 @@ export const useCreateNote = (onFinished?: () => void) => {
     const queryClient = useQueryClient()
 
     const createNoteMutation = useMutation({
-        mutationFn: async ({ title, content }: formValues) => {
+        mutationFn: async ({ title, content, uid }: mutationValues) => {
+            const userId = session.data?.user.uid || uid
             await fetch('http://localhost:3000/api/note/create', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ title: title, content: content, uid: session.data?.user.uid })
+                body: JSON.stringify({ title: title, content: content, uid: userId })
             })
         },
         onSuccess: async () => {

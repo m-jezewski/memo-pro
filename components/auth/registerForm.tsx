@@ -1,7 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { signIn } from "next-auth/react";
 
 import { TextInput } from "../textInput";
+
+import { useCreateNote } from "@/hooks/useCreateNote";
+import InitialData from "utils/initialContent.json"
+
 
 interface formValues {
     readonly email: string,
@@ -9,6 +14,7 @@ interface formValues {
 }
 
 export const RegisterForm = () => {
+    const createNoteMutation = useCreateNote()
 
     const createUserMutation = useMutation({
         mutationFn: async (values: formValues) => {
@@ -18,6 +24,17 @@ export const RegisterForm = () => {
                 body: JSON.stringify(values)
             })
             if (res.status !== 200) throw new Error(res.statusText)
+            const jsonData = await res.json()
+            return jsonData
+        },
+        onSuccess(data, variables) {
+            signIn("credentials", { redirect: false, email: variables.email, password: variables.password })
+                .then(res => {
+                    InitialData.forEach((note) => {
+                        createNoteMutation.mutate({ ...note, uid: data.id })
+                    });
+                })
+                .catch(err => console.log(err))
         },
     })
 
