@@ -1,6 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-export const useEditNote = (noteId: string, onFinished?: () => void) => {
+export const useEditNote = (
+    noteId: string, 
+    onFinished?: () => void,
+    invalidate?: boolean
+) => {
     const queryClient = useQueryClient()
 
     const editNoteMutation = useMutation({
@@ -12,7 +16,7 @@ export const useEditNote = (noteId: string, onFinished?: () => void) => {
             })
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: ['notes'] })
+            if(invalidate) await queryClient.invalidateQueries({ queryKey: ['notes'] })
             if(onFinished) onFinished()
         }
     })

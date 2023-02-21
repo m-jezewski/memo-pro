@@ -19,7 +19,7 @@ interface NoteModalProps {
 
 export const NoteModal = ({ note, isOpen, setIsOpen }: NoteModalProps) => {
     const [isEditing, setIsEditing] = useState(false)
-    const editNoteMutation = useEditNote(note.id, () => { setIsEditing(false) })
+    const editNoteMutation = useEditNote(note.id, () => { setIsEditing(false) }, true)
     const deleteNoteMutation = useDeleteNote(note.id)
 
     useEffect(() => {

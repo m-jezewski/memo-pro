@@ -1,25 +1,30 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { DndContext } from '@dnd-kit/core';
+import { SortableContext } from '@dnd-kit/sortable';
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { useState, useEffect } from "react";
 
-import type { Note } from "@prisma/client";
+import type { Note } from '@prisma/client';
 
 import { CreateNoteModal } from "@/components/notes/createNoteModal";
 import { NoteCard } from "@/components/notes/noteCard";
-import { useGetNotes } from "@/hooks/useGetNotes";
+import { useDnd } from '@/hooks/useDnd';
+import { useGetNotes } from '@/hooks/useGetNotes';
 
 const Notes = () => {
+    const [notes, setNotes] = useState<readonly Note[]>([])
     const [openCreateNote, setOpenCreateNote] = useState(false)
-    const queryClient = useQueryClient()
-
     const noteQuery = useGetNotes()
+    const { sensors, handleDragEnd } = useDnd(setNotes)
+
+    if (noteQuery.data?.length === 0) {
+        noteQuery.refetch({ queryKey: ['notes'] })
+            .catch(err => console.log(err))
+    }
 
     useEffect(() => {
-        queryClient.invalidateQueries({ queryKey: ['notes'] })
-            .catch(err => console.log(err))
-    }, [queryClient])
-
+        if (noteQuery.data) setNotes(noteQuery.data)
+    }, [noteQuery.data])
 
     return (
         <div className='container flex flex-col mx-auto min-h-screen text-white_1'>
@@ -37,16 +42,21 @@ const Notes = () => {
             <main className='flex flex-wrap content-start gap-4 py-8 px-4 grow'>
                 {noteQuery.isLoading ? <span className='loader'></span> :
                     <>
-                        {noteQuery.data ? noteQuery.data.map(note => (
-                            <NoteCard
-                                key={note.id}
-                                id={note.id}
-                                title={note.title}
-                                authorId={note.authorId}
-                                content={note.content}
-                                orderIndex={note.orderIndex}
-                            />
-                        )) : null}
+                        {notes ?
+                            <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+                                <SortableContext items={[...notes]}>
+                                    {notes.map(note => (
+                                        <NoteCard
+                                            key={note.id}
+                                            id={note.id}
+                                            title={note.title}
+                                            authorId={note.authorId}
+                                            content={note.content}
+                                            orderIndex={note.orderIndex}
+                                        />
+                                    ))}
+                                </SortableContext>
+                            </DndContext> : null}
                         <button
                             onClick={() => { setOpenCreateNote(true) }}
                             className='h-56  grid items-center rounded-lg justify-center transition-all hover:backdrop-brightness-150

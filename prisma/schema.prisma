@@ -57,9 +57,10 @@ model VerificationToken {
 }
 
 model Note {
-  id String @id @default(cuid())
-  title String?
-  content String?
-  author User @relation(fields: [authorId], references: [id])
-  authorId String
+  id         String @id @default(cuid())
+  title      String?
+  content    String?
+  author     User @relation(fields: [authorId], references: [id])
+  authorId   String
+  orderIndex Int @default(autoincrement())
 }

@@ -11,7 +11,7 @@ export const useGetNotes = () => {
         queryFn: async () => {
             const res = await fetch(`http://localhost:3000/api/note/${session.data?.user.uid}`)
             const data: readonly Note[] = await res.json()
-            return data
+            return [...data].sort((a, b) => a.orderIndex - b.orderIndex)
         }
     })
 
