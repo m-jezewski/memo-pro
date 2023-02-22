@@ -1,3 +1,4 @@
+/* eslint-disable functional/prefer-readonly-type -- setting notes*/ 
 /* eslint-disable @typescript-eslint/consistent-type-assertions -- noteId -> UniqueIdentifier */
 import { KeyboardSensor, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
@@ -8,7 +9,7 @@ import type { DragEndEvent, UniqueIdentifier} from "@dnd-kit/core";
 import type { Note } from "@prisma/client";
 import type { Dispatch, SetStateAction} from "react";
 
-export const useDnd = (setNotes: Dispatch<SetStateAction<readonly Note[]>>) => {
+export const useDnd = (setNotes: Dispatch<SetStateAction<Note[]>>) => {
     const mouseSensor = useSensor(MouseSensor, {
         activationConstraint: {
             distance: 5,

@@ -1,3 +1,4 @@
+/* eslint-disable functional/prefer-readonly-type  -- Notes*/
 import { DndContext } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
 import Image from "next/image";
@@ -12,7 +13,7 @@ import { useDnd } from '@/hooks/useDnd';
 import { useGetNotes } from '@/hooks/useGetNotes';
 
 const Notes = () => {
-    const [notes, setNotes] = useState<readonly Note[]>([])
+    const [notes, setNotes] = useState<Note[]>([])
     const [openCreateNote, setOpenCreateNote] = useState(false)
     const noteQuery = useGetNotes()
     const { sensors, handleDragEnd } = useDnd(setNotes)
