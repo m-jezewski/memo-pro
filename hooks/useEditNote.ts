@@ -9,7 +9,7 @@ export const useEditNote = (
 
     const editNoteMutation = useMutation({
         mutationFn: async (changesObj: any) => {
-            await fetch('http://localhost:3000/api/note/edit', {
+            await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_CALLBACK_URL}/api/note/edit`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ...changesObj, id: noteId })

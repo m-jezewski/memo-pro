@@ -6,7 +6,7 @@ import type { Note } from '@prisma/client'
 export const useUpdateNotes = () => {
     const updateNotesMutation = useMutation({
         mutationFn: async (updatedNotes: readonly Note[]) => {
-            await fetch('http://localhost:3000/api/note/updateOrder', {
+            await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_CALLBACK_URL}/api/note/updateOrder`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedNotes)

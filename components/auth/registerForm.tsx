@@ -18,7 +18,7 @@ export const RegisterForm = () => {
 
     const createUserMutation = useMutation({
         mutationFn: async (values: formValues) => {
-            const res = await fetch('http://localhost:3000/api/user/create', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_CALLBACK_URL}/api/user/create`, {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(values)

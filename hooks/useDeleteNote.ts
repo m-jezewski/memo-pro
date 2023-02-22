@@ -6,7 +6,7 @@ export const useDeleteNote = (noteId: string) => {
 
     const deleteNoteMutation = useMutation({
         mutationFn: async () => {
-            await fetch('http://localhost:3000/api/note/delete', {
+            await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_CALLBACK_URL}/api/note/delete`, {
                 method: 'DELETE',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ noteId })

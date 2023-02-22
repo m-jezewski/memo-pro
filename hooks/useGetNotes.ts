@@ -9,7 +9,7 @@ export const useGetNotes = () => {
     const noteQuery = useQuery({
         queryKey: ['notes'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:3000/api/note/${session.data?.user.uid}`)
+            const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_CALLBACK_URL}/api/note/${session.data?.user.uid}`)
             const data: readonly Note[] = await res.json()
             return [...data].sort((a, b) => a.orderIndex - b.orderIndex)
         }
