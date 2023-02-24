@@ -4,6 +4,8 @@ import { signIn } from "next-auth/react";
 
 import { TextInput } from "../textInput";
 
+import type { User } from "@prisma/client";
+
 import { useCreateNote } from "@/hooks/useCreateNote";
 import InitialData from "utils/initialContent.json"
 
@@ -24,17 +26,19 @@ export const RegisterForm = () => {
                 body: JSON.stringify(values)
             })
             if (res.status !== 200) throw new Error(res.statusText)
-            const jsonData = await res.json()
+            const jsonData: User = await res.json()
             return jsonData
         },
         onSuccess(data, variables) {
-            signIn("credentials", { redirect: false, email: variables.email, password: variables.password })
-                .then(res => {
-                    InitialData.forEach((note) => {
-                        createNoteMutation.mutate({ ...note, uid: data.id })
-                    });
-                })
-                .catch(err => console.log(err))
+            signIn("credentials", {
+                redirect: false,
+                email: variables.email,
+                password: variables.password
+            }).then(() => {
+                InitialData.forEach((note) => {
+                    createNoteMutation.mutate({ ...note, uid: data.id })
+                });
+            }).catch(err => console.log(err))
         },
     })
 
