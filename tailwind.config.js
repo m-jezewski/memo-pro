@@ -29,7 +29,8 @@ module.exports = {
         },
         width:{
           '1/3-1rem': 'calc(33.333% - 1rem)',
-          '1/2-1rem': 'calc(50% - 1rem)'
+          '1/2-1rem': 'calc(50% - 1rem)',
+          'full-2rem': 'calc(100% - 2rem)'
         }
       },
     },

@@ -43,7 +43,7 @@ export const NoteModal = ({ note, isOpen, setIsOpen }: NoteModalProps) => {
                     btnMessageSubmitting='Saving changes...'
                 /> :
                 <>
-                    <p className='break-words max-w-full'>{note.content}</p>
+                    <p className='break-words whitespace-pre-wrap max-w-full'>{note.content}</p>
                     <div className='flex justify-around w-full'>
                         <button
                             onClick={() => { setIsEditing(true) }}

@@ -21,10 +21,11 @@ export const Modal = ({ children, title, overlay = true, isOpen, setIsOpen }: Mo
                 <div
                     onClick={(e) => { e.stopPropagation() }}
                     ref={modalRef}
-                    className='relative bg-gradient-to-b from-dark_blue_1 to-slate-900 p-10 rounded-3xl flex 
+                    className='m-0 relative bg-gradient-to-b from-dark_blue_1 to-slate-900 p-10 sm:rounded-3xl flex 
                     flex-col gap-8 items-center text-white_1 shadow-[0px_0px_60px_-5px_rgba(0,0,0,0.50)] 
-                    max-w-sm w-screen max-h-screen m-8 custom-scrollbar overflow-y-auto'>
-                    <h2 className="mx-auto text-2xl uppercase font-medium break-all">{title}</h2>
+                    sm:max-w-sm w-screen max-h-screen sm:m-8 custom-scrollbar overflow-y-auto overflow-x-hidden'
+                >
+                    <h2 className="mx-10 text-2xl uppercase text-center font-medium break-words w-40 sm:w-56">{title}</h2>
                     <button
                         className='absolute top-11 right-10 '
                         onClick={() => { setIsOpen(false) }}
