@@ -1,38 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MemoPro
+MemoPro is a notes application built using Next.js and Prisma.
 
-## Getting Started
+With MemoPro, users can create, delete, and edit notes, give them a title, and sort them around the screen in any order they want.
 
-First, run the development server:
+## Tech/Libraries
+- [Next.js](https://nextjs.org/) - React framework for building server-side rendered and static web applications.
+- [Prisma](https://www.prisma.io/) - Database toolkit and ORM for Node.js.
+- [Docker](https://www.docker.com/) - A platform for developing, shipping, and running applications using containers.
+- [NextAuth.js](https://next-auth.js.org/) - Library for authentication in Next.js applications.
+- [Tanstack React Query](https://tanstack.com/query/latest/docs/react/overview) - Data-fetching library for react applications
+- [React](https://reactjs.org/) - JavaScript library for building user interfaces.
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework for quickly styling web applications.
+- [Formik](https://formik.org/) - Library for building forms in React applications.
+- [Dnd-kit](https://dndkit.com/) - Drag and drop library for React.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Live Demo
+You can try MemoPro by visiting the live demo at 
+> https://memo-pro.vercel.app/.
+
+## Screenshots
+
+![notes](https://user-images.githubusercontent.com/57302040/221429854-dec01073-2751-41f8-ab7c-690890a14328.png)
+![home, login, view notes](https://user-images.githubusercontent.com/57302040/221430370-12ab1d01-c4b1-46cb-a2ba-237c8912eb08.png)
+![create, view, update, mobile](https://user-images.githubusercontent.com/57302040/221430219-e98cbf8b-0152-4b45-b173-ff9d6cf0d12d.png)
+
+
+
+
+
+## Installation
+> git clone https://github.com/m-jezewski/memo-pro.git <br />
+
+Fill your .env variables: <br />
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+NEXTAUTH_URL=
+DATABASE_URL=
+NEXTAUTH_SECRET=
+```
+> docker-compose up -d <br />
+> npm run dev <br />
