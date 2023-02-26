@@ -33,7 +33,7 @@ You can try MemoPro by visiting the live demo at
 
 Fill your .env variables: <br />
 ```
-NEXTAUTH_URL=
+NEXT_PUBLIC_NEXTAUTH_URL=
 DATABASE_URL=
 NEXTAUTH_SECRET=
 ```
