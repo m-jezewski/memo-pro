@@ -18,11 +18,6 @@ const Notes = () => {
     const noteQuery = useGetNotes()
     const { sensors, handleDragEnd } = useDnd(setNotes)
 
-    if (noteQuery.data?.length === 0) {
-        noteQuery.refetch({ queryKey: ['notes'] })
-            .catch(err => console.log(err))
-    }
-
     useEffect(() => {
         if (noteQuery.data) setNotes(noteQuery.data)
     }, [noteQuery.data])

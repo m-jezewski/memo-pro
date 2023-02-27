@@ -16,13 +16,18 @@ module.exports = {
           rowdies: ['Rowdies', 'system-ui'],
         },
         animation:{
-          'fade-in': 'fade-in 0.25s ease-out forwards' 
+          'fade-in': 'fade-in 0.25s ease-out forwards',
+          'inf-scroll': 'inf-scroll 10s linear infinite' 
         },
         keyframes:{
           'fade-in': {
             '0%': { opacity: '0%' },  
             '100%': { opacity: '100%' }
           },
+          'inf-scroll': {
+            '0%': { translate: '0 0%' },
+            '100%': {translate: '0 -50%'}
+          }
         },
         flexBasis:{
           '1/3-1rem': 'calc(33.333% - 1rem)'
@@ -30,7 +35,11 @@ module.exports = {
         width:{
           '1/3-1rem': 'calc(33.333% - 1rem)',
           '1/2-1rem': 'calc(50% - 1rem)',
+          '1/2-0.5rem': 'calc(50% - 0.5rem)',
           'full-2rem': 'calc(100% - 2rem)'
+        },
+        inset:{
+          '3/5': 'calc((3 / 5) * 100%)'
         }
       },
     },

@@ -57,6 +57,7 @@ export const NoteCard = (note: Note) => {
                 note={note}
                 isOpen={isModalOpen}
                 setIsOpen={setIsModalOpen}
+                deleteMutation={deleteNoteMutation}
             />
         </>
     )

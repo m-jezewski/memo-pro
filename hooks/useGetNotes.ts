@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { useSession } from "next-auth/react"
+import { useEffect } from "react"
 
 import type { Note } from "@prisma/client"
 
@@ -14,6 +15,10 @@ export const useGetNotes = () => {
             return [...data].sort((a, b) => a.orderIndex - b.orderIndex)
         }
     })
+
+    useEffect(() => {
+        noteQuery.refetch({ queryKey: ['notes'] }).catch(err => console.log(err))
+    }, [session.status, noteQuery])
 
     return noteQuery
 }
