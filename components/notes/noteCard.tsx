@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { NoteModal } from "./noteModal";
 
 import type { Note } from "@prisma/client";
+import type { KeyboardEvent } from 'react'
 
 import { useDeleteNote } from "@/hooks/useDeleteNote";
 
@@ -32,6 +33,13 @@ export const NoteCard = (note: Note) => {
         )
     }
 
+    const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.code === 'Space' || e.code === 'Enter') {
+            e.preventDefault()
+            setIsModalOpen(true)
+        }
+    }
+
     return (
         <>
             <div
@@ -43,7 +51,9 @@ export const NoteCard = (note: Note) => {
                 transition-colors cursor-pointer hover:brightness-[1.15] over:saturate-[1.15] w-full sm:w-1/2-1rem lg:w-1/3-1rem'
                 tabIndex={0}
                 aria-label={`Click to view entire content or edit ${note.title} note`}
-                onClick={() => { setIsModalOpen(!isModalOpen) }}>
+                onClick={() => { setIsModalOpen(true) }}
+                onKeyDown={handleKeyDown}
+            >
                 <header className='flex justify-between items-start gap-1'>
                     <h4 className='uppercase font-medium break-words w-full-2rem'>{note.title}</h4>
                     <button className='min-w-[24px]' onClick={() => { deleteNoteMutation.mutate() }}>

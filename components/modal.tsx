@@ -18,15 +18,17 @@ export const Modal = ({ children, title, overlay = true, isOpen, setIsOpen }: Mo
 
     useEffect(() => {
         if (typeof window === 'undefined') return
-
         const getKeyListener = (e: KeyboardEvent) => {
             const listener = keyListenerMap.get(e.code)
             if (listener) return listener(e)
         }
-        modalRef.current?.focus()
         document.addEventListener("keydown", getKeyListener)
         return () => document.removeEventListener('keydown', getKeyListener)
     }, [])
+
+    useEffect(() => {
+        if (isOpen) modalRef.current?.querySelector<HTMLElement>('button')?.focus()
+    }, [isOpen])
 
     const handleTab = (e: KeyboardEvent) => {
         if (!modalRef.current) return
