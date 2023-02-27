@@ -43,6 +43,11 @@ export default function Home() {
               className='p-4 rounded-xl font-medium text-2xl bg-light_blue_1 w-60 duration-150 transition ease-in-out hover:bg-white_1 hover:text-red_1'>
               LOGIN
             </button>
+            <a
+              className='p-4'
+              href='https://github.com/m-jezewski/memo-pro'>
+              GitHub
+            </a>
           </div>
           {isOpenRegForm && <Modal isOpen={isOpenRegForm} setIsOpen={setOpenRegForm} title='REGISTER'>
             <RegisterForm />
