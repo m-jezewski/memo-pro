@@ -1,5 +1,5 @@
 # MemoPro
-MemoPro is a notes application built using Next.js and Prisma.
+MemoPro is a notes application built using Next.js and Prisma ORM.
 
 With MemoPro, users can create, delete, and edit notes, give them a title, and sort them around the screen in any order they want.
 
