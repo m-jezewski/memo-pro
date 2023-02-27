@@ -44,7 +44,7 @@ export default function Home() {
               LOGIN
             </button>
             <a
-              className='p-4'
+              className='p-4 text-center'
               href='https://github.com/m-jezewski/memo-pro'>
               GitHub
             </a>
