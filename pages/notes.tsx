@@ -36,7 +36,7 @@ const Notes = () => {
                 </div>
             </header>
             <main className='flex flex-wrap content-start gap-4 py-8 px-4 grow'>
-                {noteQuery.isLoading ? <span className='loader'></span> :
+                {noteQuery.isLoading || noteQuery.data === null ? <span className='loader'></span> :
                     <>
                         {notes ?
                             <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
