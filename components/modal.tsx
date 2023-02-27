@@ -32,7 +32,7 @@ export const Modal = ({ children, title, overlay = true, isOpen, setIsOpen }: Mo
 
     const handleTab = (e: KeyboardEvent) => {
         if (!modalRef.current) return
-        const focusableElements = modalRef.current.querySelectorAll<HTMLElement>('button, textarea, input[type="text"]')
+        const focusableElements = modalRef.current.querySelectorAll<HTMLElement>('button, textarea, input[type="text"], input[type="email"], input[type="password"]')
         const first = focusableElements[0]
         const last = focusableElements[focusableElements.length - 1]
 

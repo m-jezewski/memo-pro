@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { LoginForm } from '@/components/auth/loginForm'
 import { RegisterForm } from '@/components/auth/registerForm'
+import { BlocksScreenAnimation } from '@/components/blocksAnimation'
 import { Modal } from '@/components/modal'
 import { useRedirect } from '@/hooks/useRedirect'
 
@@ -50,6 +51,7 @@ export default function Home() {
             <LoginForm />
           </Modal>}
         </main>
+        <BlocksScreenAnimation />
       </div>
     </>
   )

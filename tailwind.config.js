@@ -17,7 +17,7 @@ module.exports = {
         },
         animation:{
           'fade-in': 'fade-in 0.25s ease-out forwards',
-          'inf-scroll': 'inf-scroll 10s linear infinite' 
+          'inf-scroll': 'inf-scroll 20s linear infinite'
         },
         keyframes:{
           'fade-in': {
@@ -25,8 +25,8 @@ module.exports = {
             '100%': { opacity: '100%' }
           },
           'inf-scroll': {
-            '0%': { translate: '0 0%' },
-            '100%': {translate: '0 -50%'}
+            '0%': {translate: '0 0%'},
+            '100%': {translate: '0 -100%' }
           }
         },
         flexBasis:{
