@@ -7,6 +7,7 @@ export default function Document() {
       <body className='bg-gradient-to-b from-dark_blue_1 to-black min-h-screen p-0 m-0'>
         <Main />
         <NextScript />
+        <div id='modal-root'></div>
       </body>
     </Html>
   )

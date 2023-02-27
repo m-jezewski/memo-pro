@@ -42,7 +42,8 @@ export const NoteCard = (note: Note) => {
                 className='flex flex-col bg-light_blue_transparent gap-2 rounded-lg p-4 h-[224px]
                 transition-colors cursor-pointer hover:brightness-[1.15] over:saturate-[1.15] w-full sm:w-1/2-1rem lg:w-1/3-1rem'
                 tabIndex={0}
-                onClick={() => { console.log('onclick'); setIsModalOpen(!isModalOpen) }}>
+                aria-label={`Click to view entire content or edit ${note.title} note`}
+                onClick={() => { setIsModalOpen(!isModalOpen) }}>
                 <header className='flex justify-between items-start gap-1'>
                     <h4 className='uppercase font-medium break-words w-full-2rem'>{note.title}</h4>
                     <button className='min-w-[24px]' onClick={() => { deleteNoteMutation.mutate() }}>
