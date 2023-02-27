@@ -1,6 +1,6 @@
 /* eslint-disable functional/prefer-readonly-type -- setting notes*/ 
 /* eslint-disable @typescript-eslint/consistent-type-assertions -- noteId -> UniqueIdentifier */
-import { PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
 import { useUpdateNotes } from "./useUpdateNotesOrder";
@@ -10,13 +10,13 @@ import type { Note } from "@prisma/client";
 import type { Dispatch, SetStateAction} from "react";
 
 export const useDnd = (setNotes: Dispatch<SetStateAction<Note[]>>) => {
-    const pointerSensor = useSensor(PointerSensor, {
+    const mouseSensor = useSensor(MouseSensor, {
         activationConstraint: {
             distance: 5,
         },
     });
 
-    const sensors = useSensors(pointerSensor);
+    const sensors = useSensors(mouseSensor);
 
     const updateOrdersMutation = useUpdateNotes()
 
