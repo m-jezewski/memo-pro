@@ -12,13 +12,13 @@ export default NextAuth({
         strategy: 'jwt',
     },
     callbacks: {
-        session: async ({ session, token }) => {
+        session: ({ session, token }) => {
           if (session?.user) {
             session.user.uid = token.sub || '';
           }
           return session;
         },
-        jwt: async ({ user, token }) => {
+        jwt: ({ user, token }) => {
           if (user) {
             token.uid = user.id;
           }

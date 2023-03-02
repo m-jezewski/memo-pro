@@ -1,15 +1,13 @@
-/* eslint-disable functional/prefer-readonly-type -- setting notes*/ 
-/* eslint-disable @typescript-eslint/consistent-type-assertions -- noteId -> UniqueIdentifier */
 import { MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
 import { useUpdateNotes } from "./useUpdateNotesOrder";
 
-import type { DragEndEvent, UniqueIdentifier} from "@dnd-kit/core";
+import type { DragEndEvent } from "@dnd-kit/core";
 import type { Note } from "@prisma/client";
 import type { Dispatch, SetStateAction} from "react";
 
-export const useDnd = (setNotes: Dispatch<SetStateAction<Note[]>>) => {
+export const useDnd = (setNotes: Dispatch<SetStateAction<readonly Note[]>>) => {
     const mouseSensor = useSensor(MouseSensor, {
         activationConstraint: {
             distance: 5,
@@ -17,7 +15,6 @@ export const useDnd = (setNotes: Dispatch<SetStateAction<Note[]>>) => {
     });
 
     const sensors = useSensors(mouseSensor);
-
     const updateOrdersMutation = useUpdateNotes()
 
     function handleDragEnd(event: DragEndEvent) {
@@ -25,15 +22,15 @@ export const useDnd = (setNotes: Dispatch<SetStateAction<Note[]>>) => {
         if (!over) return
         if (active.id !== over.id) {
             setNotes((notes) => {
-                const oldIndex = notes.map(note => note.id as UniqueIdentifier).indexOf(active.id)
-                const newIndex = notes.map(note => note.id as UniqueIdentifier).indexOf(over.id)
+                const oldIndex = notes.map(note => note.id).indexOf(String(active.id))
+                const newIndex = notes.map(note => note.id).indexOf(String(over.id))
                 const newNotes = arrayMove(notes, oldIndex, newIndex)
-                const result = newNotes.map((note, index) => {
-                    return {
+                const result = newNotes.map((note, index) => (
+                    {
                         ...note,
                         orderIndex: index
                     }
-                }).sort((a, b) => a.orderIndex - b.orderIndex)
+                )).sort((a, b) => a.orderIndex - b.orderIndex)
                 updateOrdersMutation.mutate(result)
                 return result;
             })

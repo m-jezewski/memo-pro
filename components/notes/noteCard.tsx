@@ -10,7 +10,7 @@ import type { KeyboardEvent } from 'react'
 
 import { useDeleteNote } from "@/hooks/useDeleteNote";
 
-export const NoteCard = (note: Note) => {
+export const NoteCard = ({ note }: { readonly note: Note }) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const deleteNoteMutation = useDeleteNote(note.id)
     const {

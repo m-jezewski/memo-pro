@@ -17,17 +17,7 @@ export const Modal = ({ children, title, overlay = true, isOpen, setIsOpen }: Mo
     const modalRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        if (typeof window === 'undefined') return
-        const getKeyListener = (e: KeyboardEvent) => {
-            const listener = keyListenerMap.get(e.code)
-            if (listener) return listener(e)
-        }
-        document.addEventListener("keydown", getKeyListener)
-        return () => document.removeEventListener('keydown', getKeyListener)
-    }, [])
-
-    useEffect(() => {
-        if (isOpen) modalRef.current?.querySelector<HTMLElement>('button')?.focus()
+        if (isOpen) modalRef.current?.querySelector('button')?.focus()
     }, [isOpen])
 
     const handleTab = (e: KeyboardEvent) => {
@@ -35,11 +25,13 @@ export const Modal = ({ children, title, overlay = true, isOpen, setIsOpen }: Mo
         const focusableElements = modalRef.current.querySelectorAll<HTMLElement>('button, textarea, input[type="text"], input[type="email"], input[type="password"]')
         const first = focusableElements[0]
         const last = focusableElements[focusableElements.length - 1]
+        const active = document.activeElement
 
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- Element -> HTMLElement type assertion 
-        const active = document.activeElement as HTMLElement | null
-
-        if ((!e.shiftKey && active === last) || active === null || !Array.from(focusableElements).includes(active)) {
+        if (
+            (!e.shiftKey && active === last) ||
+            (active === null) ||
+            (active instanceof HTMLElement && !Array.from(focusableElements).includes(active))
+        ) {
             first.focus()
             e.preventDefault()
         }
@@ -50,7 +42,20 @@ export const Modal = ({ children, title, overlay = true, isOpen, setIsOpen }: Mo
         }
     }
 
-    const keyListenerMap = new Map([['Tab', handleTab], ['Escape', () => { setIsOpen(false) }]])
+    useEffect(() => {
+        const keyListenerMap = new Map([['Tab', handleTab], ['Escape', () => { setIsOpen(false) }]])
+
+        if (typeof window === 'undefined') return
+        const getKeyListener = (e: KeyboardEvent) => {
+            const listener = keyListenerMap.get(e.code)
+            if (listener) return listener(e)
+        }
+        document.addEventListener("keydown", getKeyListener)
+
+        return () => {
+            document.removeEventListener('keydown', getKeyListener)
+        }
+    }, [setIsOpen])
 
     const modalContent = isOpen ? (
         <div
@@ -62,9 +67,9 @@ export const Modal = ({ children, title, overlay = true, isOpen, setIsOpen }: Mo
                 onMouseDown={e => e.stopPropagation()}
                 onClick={(e) => e.stopPropagation()}
                 ref={modalRef}
-                className='m-0 relative bg-gradient-to-b from-dark_blue_1 to-slate-900 p-10 sm:rounded-3xl flex 
-                    flex-col gap-8 items-center text-white_1 shadow-[0px_0px_60px_-5px_rgba(0,0,0,0.50)] 
-                    sm:max-w-sm md:max-w-md w-screen max-h-screen sm:m-8 custom-scrollbar overflow-y-auto overflow-x-hidden'
+                className='m-0 relative bg-gradient-to-b from-dark_blue_1 to-slate-900 p-10 sm:rounded-3xl 
+                flex flex-col gap-8 items-center text-white_1 shadow-[0px_0px_60px_-5px_rgba(0,0,0,0.50)] 
+                sm:max-w-sm md:max-w-md w-screen max-h-screen sm:m-8 custom-scrollbar overflow-y-auto overflow-x-hidden'
             >
                 <h2 className="mx-10 text-2xl uppercase text-center font-medium break-words w-40 sm:w-56">{title}</h2>
                 <button
