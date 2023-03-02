@@ -63,7 +63,7 @@ const Notes = () => {
                 setOpenCreateNote(true);
               }}
               className="h-56 grid items-center rounded-lg justify-center transition-all hover:backdrop-brightness-150
-                            hover:backdrop-contrast-[0.9] hover:backdrop-saturate-[1.15] w-full sm:w-1/2-1rem lg:w-1/3-1rem order-last"
+              hover:backdrop-contrast-[0.9] hover:backdrop-saturate-[1.15] w-full sm:w-1/2-1rem lg:w-1/3-1rem order-last"
             >
               <Image src="/add.svg" alt="Add new note" width={48} height={48} />
             </button>

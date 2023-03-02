@@ -11,9 +11,6 @@ export const useUpdateNotes = () => {
         body: JSON.stringify(updatedNotes),
       });
     },
-    onSuccess(data) {
-      console.log(data);
-    },
   });
 
   return updateNotesMutation;

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/require-await -- callbacks */
+/* eslint-disable require-await -- callbacks*/
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 import NextAuth from 'next-auth';
@@ -12,13 +14,13 @@ export default NextAuth({
     strategy: 'jwt',
   },
   callbacks: {
-    session: ({ session, token }) => {
+    session: async ({ session, token }) => {
       if (session?.user) {
         session.user.uid = token.sub || '';
       }
       return session;
     },
-    jwt: ({ user, token }) => {
+    jwt: async ({ user, token }) => {
       if (user) {
         token.uid = user.id;
       }
