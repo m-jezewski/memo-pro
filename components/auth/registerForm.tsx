@@ -7,8 +7,7 @@ import { TextInput } from "../textInput";
 import type { User } from "@prisma/client";
 
 import { useCreateNote } from "@/hooks/useCreateNote";
-import InitialData from "utils/initialContent.json"
-
+import InitialData from "data/initialContent.json"
 
 interface formValues {
     readonly email: string,
