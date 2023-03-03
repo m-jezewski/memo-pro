@@ -5,15 +5,15 @@ import { TextInput } from '../textInput';
 import type { UseMutationResult } from '@tanstack/react-query';
 
 interface formValues {
-  readonly title: string;
-  readonly content: string;
+  readonly title?: string | null;
+  readonly content?: string | null;
 }
 
 interface NoteFormProps {
   readonly mutation: UseMutationResult<void, unknown, formValues, unknown>;
   readonly initialValues: {
-    readonly title: string;
-    readonly content: string;
+    readonly title: string | undefined;
+    readonly content: string | undefined;
   };
   readonly btnMessageSubmitting: string;
   readonly btnMessageIdle: string;
@@ -59,7 +59,7 @@ export const NoteForm = ({ mutation, initialValues, btnMessageIdle, btnMessageSu
         <button
           disabled={mutation.isLoading}
           className={`font-medium transition p-2 w-full rounded-full mt-4 leading-6 bg-light_blue_1 
-                        ${mutation.isLoading ? 'bg-dark_blue_1' : 'hover:bg-white_1 hover:text-red_1'}`}
+          ${mutation.isLoading ? 'bg-dark_blue_1' : 'hover:bg-white_1 hover:text-red_1'}`}
           type="submit"
         >
           {mutation.isLoading ? btnMessageSubmitting : btnMessageIdle}
