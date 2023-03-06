@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import type { Note } from '@prisma/client';
+import type { editMutationValues } from '@/interfaces';
 
 export const useEditNote = (noteId: string, onFinished?: () => void, invalidate?: boolean) => {
   const queryClient = useQueryClient();
 
   const editNoteMutation = useMutation({
-    mutationFn: async (changesObj: { readonly [Prop in keyof Note]+?: Note[Prop] }) => {
+    mutationFn: async (changesObj: editMutationValues) => {
       await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/note/edit`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
