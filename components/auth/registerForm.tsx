@@ -54,7 +54,7 @@ export const RegisterForm = () => {
         <TextInput label="Email" name="email" type="email" required />
         <TextInput label="Password" name="password" type="password" required />
         {createUserMutation.isError && (
-          <p className="text-sm text-red_1 text-center">{String(createUserMutation.error)}</p>
+          <p className="text-sm text-red_1 text-center">{String(createUserMutation.failureReason)}</p>
         )}
         <button
           className="bg-light_blue_1 font-medium transition p-2 w-full rounded-full leading-6 hover:bg-white_1 hover:text-red_1 mt-5"

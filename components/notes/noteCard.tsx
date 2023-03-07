@@ -51,7 +51,7 @@ export const NoteCard = ({ note }: { readonly note: Note }) => {
         onKeyDown={handleKeyDown}
       >
         <header className="flex justify-between items-start gap-1">
-          <h4 className="uppercase font-medium break-words w-full-2rem">{note.title}</h4>
+          <h3 className="uppercase font-medium break-words w-full-2rem">{note.title}</h3>
           <button
             className="min-w-[24px]"
             onClick={() => {
