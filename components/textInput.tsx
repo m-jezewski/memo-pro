@@ -20,6 +20,7 @@ export const TextInput = (props: TextInputOtherProps & FieldHookConfig<string>) 
       />
       <Field
         className="bg-dark_blue_1 custom-scrollbar resize-none w-full rounded-md p-2 outline-light_blue_1 "
+        id={props.id || props.name}
         {...field}
         {...props}
       />
