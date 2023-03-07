@@ -18,6 +18,12 @@ With MemoPro, users can create, delete, and edit notes, give them a title, and s
 You can try MemoPro by visiting the live demo at 
 > https://memo-pro.vercel.app/.
 
+And log in with demo acc:
+```
+login:      test@test.com
+password:   test123
+```
+
 ## Screenshots
 
 ![notes](https://user-images.githubusercontent.com/57302040/221429854-dec01073-2751-41f8-ab7c-690890a14328.png)
