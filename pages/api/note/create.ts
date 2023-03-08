@@ -1,20 +1,28 @@
+import { getServerSession } from 'next-auth';
+
+import { authOptions } from '../auth/[...nextauth]';
+
 import type { Note } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { client } from '@/lib/prismadb';
 
 interface reqBody {
-  readonly uid: string;
   readonly title: string;
   readonly content: string;
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Note>) {
-  const { uid, title, content }: reqBody = req.body;
+  const { title, content }: reqBody = req.body;
+  const session = await getServerSession(req, res, authOptions);
 
-  if (req.method === 'POST') {
+  if (req.method !== 'POST') {
+    res.status(405).end();
+  }
+
+  if (session?.user.uid) {
     try {
-      const author = await client.user.findUnique({ where: { id: uid } });
+      const author = await client.user.findUnique({ where: { id: session.user.uid } });
       if (!author) throw new Error('User not found');
       const note = await client.note.create({
         data: {
@@ -29,6 +37,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       res.status(500).end();
     }
   } else {
-    res.status(405).end();
+    res.status(401).end();
   }
 }

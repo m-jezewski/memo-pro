@@ -1,24 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useSession } from 'next-auth/react';
 
 import type { createMutationValues } from '@/interfaces';
 
-export const useCreateNote = (onFinished?: () => void) => {
-  const session = useSession();
+export const useCreateNote = () => {
   const queryClient = useQueryClient();
 
   const createNoteMutation = useMutation({
-    mutationFn: async ({ title, content, uid }: createMutationValues) => {
-      const userId = session.data?.user.uid || uid;
+    mutationFn: async ({ title, content }: createMutationValues) => {
       await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/note/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: title, content: content, uid: userId }),
+        body: JSON.stringify({ title: title, content: content }),
       });
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['notes'] });
-      if (onFinished) onFinished();
     },
   });
 

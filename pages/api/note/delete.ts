@@ -4,7 +4,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { client } from '@/lib/prismadb';
 
 interface reqBody {
-  readonly uid: string;
   readonly noteId: string;
 }
 

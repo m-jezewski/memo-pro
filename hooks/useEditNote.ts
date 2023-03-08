@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import type { editMutationValues } from '@/interfaces';
 
-export const useEditNote = (noteId: string, onFinished?: () => void, invalidate?: boolean) => {
+export const useEditNote = (noteId: string, invalidate?: boolean) => {
   const queryClient = useQueryClient();
 
   const editNoteMutation = useMutation({
@@ -15,7 +15,6 @@ export const useEditNote = (noteId: string, onFinished?: () => void, invalidate?
     },
     onSuccess: async () => {
       if (invalidate) await queryClient.invalidateQueries({ queryKey: ['notes'] });
-      if (onFinished) onFinished();
     },
   });
 

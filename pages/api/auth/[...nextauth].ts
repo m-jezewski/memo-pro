@@ -5,9 +5,11 @@ import { PrismaClient } from '@prisma/client';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+import type { NextAuthOptions } from 'next-auth';
+
 const prisma = new PrismaClient();
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   debug: true,
   adapter: PrismaAdapter(prisma),
   session: {
@@ -50,4 +52,6 @@ export default NextAuth({
       },
     }),
   ],
-});
+};
+
+export default NextAuth(authOptions);
