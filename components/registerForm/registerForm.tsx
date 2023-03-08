@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Form, Formik } from 'formik';
 import { signIn } from 'next-auth/react';
 
-import { TextInput } from '../textInput';
+import { TextInput } from '../textInput/textInput';
 
 import type { User } from '@prisma/client';
 

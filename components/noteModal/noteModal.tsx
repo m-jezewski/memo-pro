@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
-import { Modal } from '../modal';
-
-import { NoteForm } from './noteForm';
+import { Modal } from '../modal/modal';
+import { NoteForm } from '../noteForm/noteForm';
 
 import type { Note } from '@prisma/client';
 import type { UseMutationResult } from '@tanstack/react-query';
@@ -21,13 +20,7 @@ interface NoteModalProps {
 
 export const NoteModal = ({ note, isOpen, setIsOpen, deleteMutation }: NoteModalProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const editNoteMutation = useEditNote(
-    note.id,
-    () => {
-      setIsEditing(false);
-    },
-    true,
-  );
+  const editNoteMutation = useEditNote(note.id, true);
 
   const handleDelete = () => {
     deleteMutation.mutate();
@@ -43,6 +36,9 @@ export const NoteModal = ({ note, isOpen, setIsOpen, deleteMutation }: NoteModal
       {isEditing ? (
         <NoteForm<editMutationValues>
           mutation={editNoteMutation}
+          mutationOnSuccess={() => {
+            setIsEditing(false);
+          }}
           initialValues={{
             title: note.title || '',
             content: note.content || '',

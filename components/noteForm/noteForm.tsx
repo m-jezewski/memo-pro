@@ -1,12 +1,13 @@
 import { Form, Formik } from 'formik';
 
-import { TextInput } from '../textInput';
+import { TextInput } from '../textInput/textInput';
 
 import type { noteFormValues } from '@/interfaces';
 import type { UseMutationResult } from '@tanstack/react-query';
 
 interface NoteFormProps<TMutation> {
   readonly mutation: UseMutationResult<void, unknown, TMutation | noteFormValues, unknown>;
+  readonly mutationOnSuccess: () => void;
   readonly initialValues: noteFormValues;
   readonly btnMessageSubmitting: string;
   readonly btnMessageIdle: string;
@@ -14,6 +15,7 @@ interface NoteFormProps<TMutation> {
 
 export const NoteForm = <TMutation,>({
   mutation,
+  mutationOnSuccess,
   initialValues,
   btnMessageIdle,
   btnMessageSubmitting,
@@ -22,7 +24,11 @@ export const NoteForm = <TMutation,>({
     <Formik
       initialValues={initialValues}
       onSubmit={(values, actions) => {
-        mutation.mutate(values);
+        mutation.mutate(values, {
+          onSuccess: () => {
+            mutationOnSuccess();
+          },
+        });
         actions.resetForm();
       }}
       validate={(values) => {

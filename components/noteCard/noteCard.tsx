@@ -3,7 +3,7 @@ import { CSS } from '@dnd-kit/utilities';
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { NoteModal } from './noteModal';
+import { NoteModal } from '../noteModal/noteModal';
 
 import type { Note } from '@prisma/client';
 import type { KeyboardEvent } from 'react';
