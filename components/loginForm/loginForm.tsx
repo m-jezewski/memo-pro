@@ -22,8 +22,13 @@ export const LoginForm = () => {
         <TextInput label="Email" name="email" type="email" required />
         <TextInput label="Password" name="password" type="password" required />
         {errorMessage !== '' && <p className="text-sm text-red_1 text-center">{errorMessage}</p>}
+        <p className="text-center text-base">
+          <span className="font-semibold">Demo account:</span> <br />
+          login: test@test.com <br />
+          password: test123
+        </p>
         <button
-          className="bg-light_blue_1 font-medium transition p-2 w-full rounded-full leading-6 hover:bg-white_1 hover:text-red_1 mt-5"
+          className="bg-light_blue_1 font-medium transition p-2 w-full rounded-full leading-6 hover:bg-white_1 hover:text-red_1"
           type="submit"
         >
           LOG IN

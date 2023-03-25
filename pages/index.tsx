@@ -25,6 +25,14 @@ export default function Home() {
             <span className="text-red_1">PRO</span>
           </h2>
           <HomeButtonSection />
+          <p className="text-sm mt-4">
+            <span className="my-1 block text-sm font-semibold">Demo account:</span>
+            <span>
+              login: test@test.com
+              <br />
+              password: test123
+            </span>
+          </p>
         </main>
         <BlocksScreenAnimation />
       </div>
