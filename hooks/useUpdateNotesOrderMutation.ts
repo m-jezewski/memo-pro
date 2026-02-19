@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import type { Note } from '@prisma/client';
 
-export const useUpdateNotes = () => {
+export const useUpdateNotesOrderMutation = () => {
   const updateNotesMutation = useMutation({
     mutationFn: async (updatedNotes: readonly Note[]) => {
       await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/note/updateOrder`, {

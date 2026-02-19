@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import type { User } from '@prisma/client';
 
-export const useCreateUser = () => {
+export const useCreateUserMutation = () => {
   return useMutation<User, Error, { readonly email: string; readonly password: string }>({
     mutationFn: async (values) => {
       const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/user/create`, {

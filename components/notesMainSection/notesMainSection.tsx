@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { CreateNoteButton } from '../createNoteButton/createNoteButton';
 import { SortableNotelist } from '../sortableNoteList/sortableNoteList';
 
-import { useGetNotes } from '@/hooks/useGetNotes';
+import { useGetNotesQuery } from '@/hooks/useGetNotesQuery';
 
 export const NotesMainSection = () => {
-  const noteQuery = useGetNotes();
+  const noteQuery = useGetNotesQuery();
 
   return (
     <main className="flex flex-wrap content-start gap-4 py-8 px-4 grow">

@@ -8,11 +8,11 @@ import { NoteModal } from '../noteModal/noteModal';
 import type { Note } from '@prisma/client';
 import type { KeyboardEvent } from 'react';
 
-import { useDeleteNote } from '@/hooks/useDeleteNote';
+import { useDeleteNoteMutation } from '@/hooks/useDeleteNoteMutation';
 
 export const NoteCard = ({ note }: { readonly note: Note }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const deleteNoteMutation = useDeleteNote(note.id);
+  const deleteNoteMutation = useDeleteNoteMutation(note.id);
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: note.id });
   const styles = {
     transform: CSS.Transform.toString(transform),

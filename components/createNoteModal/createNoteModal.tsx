@@ -4,7 +4,7 @@ import { NoteForm } from '../noteForm/noteForm';
 import type { NoteFormValues } from '@/lib/validations/note';
 import type { Dispatch, SetStateAction } from 'react';
 
-import { useCreateNote } from '@/hooks/useCreateNote';
+import { useCreateNoteMutation } from '@/hooks/useCreateNoteMutation';
 
 interface CreateNoteModalProps {
   readonly isOpen: boolean;
@@ -12,7 +12,7 @@ interface CreateNoteModalProps {
 }
 
 export const CreateNoteModal = ({ isOpen, setIsOpen }: CreateNoteModalProps) => {
-  const createNoteMutation = useCreateNote();
+  const createNoteMutation = useCreateNoteMutation();
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} title="New note" overlay={true}>

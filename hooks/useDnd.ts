@@ -1,7 +1,7 @@
 import { MouseSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 
-import { useUpdateNotes } from './useUpdateNotesOrder';
+import { useUpdateNotesOrderMutation } from '@/hooks/useUpdateNotesOrderMutation';
 
 import type { DragEndEvent } from '@dnd-kit/core';
 import type { Note } from '@prisma/client';
@@ -15,7 +15,7 @@ export const useDnd = (setNotes: Dispatch<SetStateAction<readonly Note[]>>) => {
   });
 
   const sensors = useSensors(mouseSensor);
-  const updateOrdersMutation = useUpdateNotes();
+  const updateOrdersMutation = useUpdateNotesOrderMutation();
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;

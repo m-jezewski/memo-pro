@@ -3,10 +3,10 @@ import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 import { TextInput } from '../textInput/textInput';
 import { registerSchema } from '@/lib/validations/auth';
-import { useCreateUser } from '@/hooks/useCreateUser';
+import { useCreateUserMutation } from '@/hooks/useCreateUserMutation';
 
 export const RegisterForm = () => {
-  const createUserMutation = useCreateUser();
+  const createUserMutation = useCreateUserMutation();
 
   return (
     <Formik

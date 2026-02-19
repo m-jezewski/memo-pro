@@ -13,7 +13,7 @@ interface SortableNoteListProps {
 }
 
 export const SortableNotelist = ({ queryData }: SortableNoteListProps) => {
-  const [notes, setNotes] = useState<readonly Note[]>([]);
+  const [notes, setNotes] = useState<readonly Note[]>(queryData || []);
   const { sensors, handleDragEnd } = useDnd(setNotes);
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import type { NoteFormValues } from '@/lib/validations/note';
 
-export const useEditNote = (noteId: string, invalidate?: boolean) => {
+export const useEditNoteMutation = (noteId: string, invalidate?: boolean) => {
   const queryClient = useQueryClient();
 
   const editNoteMutation = useMutation({

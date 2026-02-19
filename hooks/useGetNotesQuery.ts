@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react';
 
 import type { Note } from '@prisma/client';
 
-export const useGetNotes = () => {
+export const useGetNotesQuery = () => {
   const session = useSession();
   const uid = session.data?.user.uid;
 

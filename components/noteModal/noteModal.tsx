@@ -9,7 +9,7 @@ import type { UseMutationResult } from '@tanstack/react-query';
 import type { NoteFormValues } from '@/lib/validations/note';
 import type { Dispatch, SetStateAction } from 'react';
 
-import { useEditNote } from '@/hooks/useEditNote';
+import { useEditNoteMutation } from '@/hooks/useEditNoteMutation';
 
 interface NoteModalProps {
   readonly note: Note;
@@ -20,7 +20,7 @@ interface NoteModalProps {
 
 export const NoteModal = ({ note, isOpen, setIsOpen, deleteMutation }: NoteModalProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const editNoteMutation = useEditNote(note.id, true);
+  const editNoteMutation = useEditNoteMutation(note.id, true);
 
   const handleDelete = () => {
     deleteMutation.mutate();

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const useDeleteNote = (noteId: string) => {
+export const useDeleteNoteMutation = (noteId: string) => {
   const queryClient = useQueryClient();
 
   const deleteNoteMutation = useMutation({
