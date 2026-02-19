@@ -1,51 +1,17 @@
-import { useMutation } from '@tanstack/react-query';
 import { Form, Formik } from 'formik';
-import { signIn } from 'next-auth/react';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 import { TextInput } from '../textInput/textInput';
-
-import type { User } from '@prisma/client';
-
-import { useCreateNote } from '@/hooks/useCreateNote';
-import InitialData from 'data/initialContent.json';
-
-interface formValues {
-  readonly email: string;
-  readonly password: string;
-}
+import { registerSchema } from '@/lib/validations/auth';
+import { useCreateUser } from '@/hooks/useCreateUser';
 
 export const RegisterForm = () => {
-  const createNoteMutation = useCreateNote();
-
-  const createUserMutation = useMutation({
-    mutationFn: async (values: formValues) => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/user/create`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      });
-      if (res.status !== 200) throw new Error(res.statusText);
-      const jsonData: User = await res.json();
-      return jsonData;
-    },
-    onSuccess(data, variables) {
-      signIn('credentials', {
-        redirect: false,
-        email: variables.email,
-        password: variables.password,
-      })
-        .then(() => {
-          InitialData.forEach((note) => {
-            createNoteMutation.mutate({ ...note, uid: data.id });
-          });
-        })
-        .catch((err) => console.log(err));
-    },
-  });
+  const createUserMutation = useCreateUser();
 
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
+      validationSchema={toFormikValidationSchema(registerSchema)}
       onSubmit={(values) => {
         createUserMutation.mutate(values);
       }}
@@ -54,7 +20,7 @@ export const RegisterForm = () => {
         <TextInput label="Email" name="email" type="email" required />
         <TextInput label="Password" name="password" type="password" required />
         {createUserMutation.isError && (
-          <p className="text-sm text-red_1 text-center">{String(createUserMutation.failureReason)}</p>
+          <p className="text-sm text-red_1 text-center">{createUserMutation.error?.message}</p>
         )}
         <button
           className="bg-light_blue_1 font-medium transition p-2 w-full rounded-full leading-6 hover:bg-white_1 hover:text-red_1 mt-5"

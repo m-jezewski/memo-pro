@@ -1,8 +1,11 @@
 import { Form, Formik } from 'formik';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 import { TextInput } from '../textInput/textInput';
+
+import { loginSchema } from '@/lib/validations/auth';
 
 export const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -10,6 +13,7 @@ export const LoginForm = () => {
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
+      validationSchema={toFormikValidationSchema(loginSchema)}
       onSubmit={async (values) => {
         const res = await signIn('credentials', { redirect: false, email: values.email, password: values.password });
         if (res && !res.ok) {
