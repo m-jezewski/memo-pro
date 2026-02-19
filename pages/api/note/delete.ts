@@ -1,24 +1,30 @@
-import type { Note } from '@prisma/client';
+import { getServerSession } from 'next-auth';
+
+import { authOptions } from '../auth/[...nextauth]';
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { client } from '@/lib/prismadb';
+import { deleteNoteSchema } from '@/lib/validations/note';
 
-interface reqBody {
-  readonly noteId: string;
-}
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'DELETE') return res.status(405).end();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Note>) {
-  const { noteId }: reqBody = req.body;
+  const session = await getServerSession(req, res, authOptions);
+  if (!session?.user.uid) return res.status(401).end();
 
-  if (req.method === 'DELETE') {
-    try {
-      const note = await client.note.delete({ where: { id: noteId } });
-      res.status(200).json(note);
-    } catch {
-      res.statusMessage = 'Sorry!, Something went wrong while deleting your note.';
-      res.status(500).end();
-    }
-  } else {
-    res.status(405).end();
+  const parsed = deleteNoteSchema.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ message: parsed.error.issues[0].message });
+
+  const { noteId } = parsed.data;
+
+  try {
+    const note = await client.note.findUnique({ where: { id: noteId } });
+    if (!note || note.authorId !== session.user.uid) return res.status(403).end();
+
+    await client.note.delete({ where: { id: noteId } });
+    return res.status(200).end();
+  } catch {
+    return res.status(500).json({ message: 'Something went wrong while deleting your note' });
   }
 }

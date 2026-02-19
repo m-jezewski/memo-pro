@@ -1,8 +1,11 @@
 import { Form, Formik } from 'formik';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 import { TextInput } from '../textInput/textInput';
 
 import type { noteFormValues } from '@/interfaces';
+
+import { noteFormSchema } from '@/lib/validations/note';
 import type { UseMutationResult } from '@tanstack/react-query';
 
 interface NoteFormProps<TMutation> {
@@ -23,6 +26,7 @@ export const NoteForm = <TMutation,>({
   return (
     <Formik
       initialValues={initialValues}
+      validationSchema={toFormikValidationSchema(noteFormSchema)}
       onSubmit={(values, actions) => {
         mutation.mutate(values, {
           onSuccess: () => {
@@ -30,12 +34,6 @@ export const NoteForm = <TMutation,>({
           },
         });
         actions.resetForm();
-      }}
-      validate={(values) => {
-        if (!values.content) {
-          return { content: 'Note content is required' };
-        }
-        return {};
       }}
     >
       <Form className="w-full flex flex-col gap-4">
@@ -56,7 +54,7 @@ export const NoteForm = <TMutation,>({
           as="textarea"
           required
           rows={7}
-          maxLength={10000}
+          maxLength={75000}
           placeholder="Your note..."
         />
         {mutation.isError && <p className="text-red_1 text-center">Sorry!, Something went wrong!</p>}
