@@ -13,6 +13,8 @@ export const editNoteSchema = noteFormSchema.extend({
   id: z.string().min(1),
 });
 
+export type NoteFormValues = z.infer<typeof noteFormSchema>;
+
 export const updateOrderSchema = z.array(
   z.object({
     id: z.string().min(1),

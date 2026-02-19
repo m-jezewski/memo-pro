@@ -1,7 +1,7 @@
 import { Modal } from '../modal/modal';
 import { NoteForm } from '../noteForm/noteForm';
 
-import type { createMutationValues } from 'interfaces';
+import type { NoteFormValues } from '@/lib/validations/note';
 import type { Dispatch, SetStateAction } from 'react';
 
 import { useCreateNote } from '@/hooks/useCreateNote';
@@ -16,7 +16,7 @@ export const CreateNoteModal = ({ isOpen, setIsOpen }: CreateNoteModalProps) => 
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} title="New note" overlay={true}>
-      <NoteForm<createMutationValues>
+      <NoteForm<NoteFormValues>
         initialValues={{ title: '', content: '' }}
         mutation={createNoteMutation}
         mutationOnSuccess={() => {

@@ -3,15 +3,15 @@ import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 import { TextInput } from '../textInput/textInput';
 
-import type { noteFormValues } from '@/interfaces';
-
 import { noteFormSchema } from '@/lib/validations/note';
+
+import type { NoteFormValues } from '@/lib/validations/note';
 import type { UseMutationResult } from '@tanstack/react-query';
 
 interface NoteFormProps<TMutation> {
-  readonly mutation: UseMutationResult<void, unknown, TMutation | noteFormValues, unknown>;
+  readonly mutation: UseMutationResult<void, unknown, TMutation | NoteFormValues, unknown>;
   readonly mutationOnSuccess: () => void;
-  readonly initialValues: noteFormValues;
+  readonly initialValues: NoteFormValues;
   readonly btnMessageSubmitting: string;
   readonly btnMessageIdle: string;
 }
@@ -30,10 +30,10 @@ export const NoteForm = <TMutation,>({
       onSubmit={(values, actions) => {
         mutation.mutate(values, {
           onSuccess: () => {
+            actions.resetForm();
             mutationOnSuccess();
           },
         });
-        actions.resetForm();
       }}
     >
       <Form className="w-full flex flex-col gap-4">

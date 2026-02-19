@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import type { createMutationValues } from '@/interfaces';
+import type { NoteFormValues } from '@/lib/validations/note';
 
 export const useCreateNote = () => {
   const queryClient = useQueryClient();
 
   const createNoteMutation = useMutation({
-    mutationFn: async ({ title, content }: createMutationValues) => {
+    mutationFn: async ({ title, content }: NoteFormValues) => {
       await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/note/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

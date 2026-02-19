@@ -6,7 +6,7 @@ import { NoteForm } from '../noteForm/noteForm';
 
 import type { Note } from '@prisma/client';
 import type { UseMutationResult } from '@tanstack/react-query';
-import type { editMutationValues } from 'interfaces';
+import type { NoteFormValues } from '@/lib/validations/note';
 import type { Dispatch, SetStateAction } from 'react';
 
 import { useEditNote } from '@/hooks/useEditNote';
@@ -34,7 +34,7 @@ export const NoteModal = ({ note, isOpen, setIsOpen, deleteMutation }: NoteModal
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={note.title || ''}>
       {isEditing ? (
-        <NoteForm<editMutationValues>
+        <NoteForm<NoteFormValues>
           mutation={editNoteMutation}
           mutationOnSuccess={() => {
             setIsEditing(false);

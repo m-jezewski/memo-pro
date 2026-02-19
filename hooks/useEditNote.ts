@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import type { editMutationValues } from '@/interfaces';
+import type { NoteFormValues } from '@/lib/validations/note';
 
 export const useEditNote = (noteId: string, invalidate?: boolean) => {
   const queryClient = useQueryClient();
 
   const editNoteMutation = useMutation({
-    mutationFn: async (changesObj: editMutationValues) => {
+    mutationFn: async (changesObj: NoteFormValues) => {
       await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/note/edit`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
